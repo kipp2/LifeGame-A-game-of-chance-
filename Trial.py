@@ -52,8 +52,8 @@ def play_game():
         player_num1, player_num2 = draw_numbers()
         player_sum = player_num1 + player_num2
         
-        draw_text(f"\nLife draws: {life_num1}, {life_num2} (Total: {life_sum})", 250, 200)
-        draw_text(f"You draw: {player_num1}, {player_num2} (Total: {player_sum})", 250, 200)
+        draw_text(f"Life draws: {life_num1}, {life_num2} (Total: {life_sum})", 250, 200)
+        draw_text(f"You draw: {player_num1}, {player_num2} (Total: {player_sum})", 250, 250)
         
         if player_sum > life_sum :
             friends -=1
