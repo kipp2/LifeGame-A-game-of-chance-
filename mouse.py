@@ -15,12 +15,13 @@ start = (0, 0)
 size = (0, 0)
 drawing = False
 rectangles = []
+rect_list = []
 
 while running:
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False 
-        elif event.type == KEYDOWN:
+        elif event.key == KEYDOWN:
             if event.type == K_r:
                 rectangles.clear()             
         elif event.type == MOUSEBUTTONDOWN:
@@ -33,6 +34,7 @@ while running:
             x2, y2 = end
             start = (min(x1, x2), min(y1, y2))
             size = (abs(x2 - x1), abs(y2 - y1))
+            rect = pygame.Rect(start, size)
             rectangles.append((start, size))
             drawing = False 
         elif event.type == MOUSEMOTION and drawing:
@@ -43,7 +45,7 @@ while running:
             size = (abs(x2 - x1), abs(y2 - y1))
             
         screen.fill(GRAY)
-        for rect in rectangles:
+        for rect in rectangles and rect_list:
             pygame.draw.rect(screen, RED, (*rect[0], *rect[1]), 2)
             if drawing: 
                 pygame.draw.rect(screen, RED, (start,size), 2)
