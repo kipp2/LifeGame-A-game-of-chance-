@@ -8,6 +8,8 @@ while running:
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
+        else:
+            print(event)
 
         if event.type == KEYDOWN:
             if event.key == K_l:
@@ -23,6 +25,7 @@ while running:
                 rect.centery = height//2
             if event.key == K_b:
                 rect.bottom = height
+            
 
         screen.fill(GRAY)
         pygame.draw.rect(screen, BLUE, rect)

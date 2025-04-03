@@ -14,7 +14,6 @@ pts = ('topleft', 'topright', 'bottomleft', 'bottomright',
 running = True
 while running:
     for event in pygame.event.get():
-        print(event)
         if event.type == QUIT:
             running = False         
 
