@@ -37,8 +37,8 @@ class Player(pygame.sprite.Sprite):
         
         # Move the player
         self.rect.x += self.vel_x
-        self.rect.y += self.vel_y
-        
+        self.rect.y += self.vel_y        
+
         self.on_ground = False
         for platform in platforms:
             if self.rect.colliderect(platform.rect) and self.vel_y > 0:
@@ -57,6 +57,12 @@ class Player(pygame.sprite.Sprite):
             self.vel_x = -5
         elif direction == "right":
             self.vel_x = 5
+        
+        if self.rect.left <= 0:
+            self.rect.x = WIDTH
+        elif self.rect.left + 40 >= WIDTH:
+            self.rect.x = 0
+    
 
     def stop(self):
         self.vel_x = 0
