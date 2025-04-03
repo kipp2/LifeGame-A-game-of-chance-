@@ -66,7 +66,7 @@ def play_game():
         else:
             result_text = "Its a draw"
             
-        draw_text(result_text, 250, 300, GREEN if player_sum > life_sum else RED)
+        draw_text(result_text, 250, 300, RED if player_sum > life_sum else GREEN)
         draw_text(f"friends: {friends}, Foes: {foes}", 250, 350)
         pygame.display.update()
         
