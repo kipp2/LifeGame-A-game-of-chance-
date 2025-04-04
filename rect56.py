@@ -1,7 +1,7 @@
 from rects import * 
 
 rect0 = rect.copy()
-
+    
 v = (0,0)
 
 
