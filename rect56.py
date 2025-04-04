@@ -1,7 +1,7 @@
 from rects import * 
 
 rect0 = rect.copy()
-dir = {K_LEFT: (-5, 0), K_RIGHT: (5, 0), K_UP: (0, -5), K_DOWN: (0, 5)}
+
 v = (0,0)
 
 

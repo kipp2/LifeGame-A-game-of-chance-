@@ -38,4 +38,4 @@ while running:
     pygame.draw.rect(screen, RED, rect, 4)
     pygame.display.flip()
 
-    pygame.quit()
+pygame.quit()
