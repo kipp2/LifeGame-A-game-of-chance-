@@ -58,10 +58,10 @@ class Player(pygame.sprite.Sprite):
         elif direction == "right":
             self.vel_x = 5
         
-        if self.rect.left <= 0:
-            self.rect.x = WIDTH
-        elif self.rect.left + 40 >= WIDTH:
-            self.rect.x = 0
+        if self.rect.right < 0:
+            self.rect.left = WIDTH
+        elif self.rect.left >= WIDTH:
+            self.rect.right = 0
     
 
     def stop(self):
