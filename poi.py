@@ -1,9 +1,7 @@
 from rects import *
 
 
-def draw_text(text, x, y, color=BLACK):
-    label = font.render(text, True, color)
-    screen.blit(label, (x, y))
+
 
 
 pts = ('topleft', 'topright', 'bottomleft', 'bottomright',
