@@ -6,8 +6,8 @@ def random_rect(n):
     rect_height = 30
     return [
         pygame.Rect(
-            random.randint(0, width), 
-            random.randint(0, height), 
+            random.randint(0, width - 60), 
+            random.randint(0, height- 30), 
             rect_width, 
             rect_height
         )

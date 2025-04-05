@@ -12,6 +12,9 @@ width, height = SIZE
 dir = {K_LEFT: (-5, 0), K_RIGHT: (5, 0), K_UP: (0, -5), K_DOWN: (0, 5)}
 
 pygame.init()
+def draw_text(text, x, y, color=BLACK):
+    label = font.render(text, True, color)
+    screen.blit(label, (x, y))
 screen = pygame.display.set_mode(SIZE)
 font = pygame.font.Font(None, 14)
 
