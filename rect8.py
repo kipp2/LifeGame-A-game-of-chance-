@@ -1,8 +1,8 @@
 from rects import * 
 
 rect = Rect(100, 50, 50, 50)
-x, y = 1, 1
-v = (x, y)
+
+v = [2,2]
 
 while running:
     for event in pygame.event.get():
@@ -12,13 +12,13 @@ while running:
     rect.move_ip(v)
 
     if rect.left < 0:
-        x *= -1
+        v[0] *= -1
     if rect.right > width:
-        x *= -1
+        v[0] *= -1
     if rect.top < 0:
-        y *= -1
+        v[1] *= -1
     if rect.bottom > height:
-        y *= -1
+        v[1] *= -1
     
     screen.fill(GRAY)
     pygame.draw.rect(screen, RED, rect )
