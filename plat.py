@@ -1,4 +1,5 @@
 import pygame
+import random
 
 # Initialize Pygame
 pygame.init()
@@ -12,6 +13,7 @@ WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 GRAVITY = 0.5
+SCROLL_THRESH = 200
 
 # Create Game Window
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -30,6 +32,7 @@ class Player(pygame.sprite.Sprite):
         self.vel_x = 0
         self.vel_y = 0
         self.on_ground = False
+        self.score = 0
 
     def update(self):
         # Apply gravity
@@ -45,6 +48,12 @@ class Player(pygame.sprite.Sprite):
                 self.rect.bottom = platform.rect.top
                 self.vel_y = 0
                 self.on_ground = True
+
+        if self.rect.top <= SCROLL_THRESH:
+            for platform in platforms:
+                platform.rect.y += abs(self.vel_y)
+            self.rect.y += abs(self.vel_y)
+            self.score += 1
 
         # Prevent player from falling below screen
         if self.rect.bottom > HEIGHT:
@@ -80,15 +89,18 @@ class Platform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
 
+def generate_platforms():
+    platforms = [Platform(200, HEIGHT -50, 400, 20)]
+    for i in range(6):
+        x = random.randint(100, WIDTH - 200)
+        y = HEIGHT - (i * 100) - 50
+        platforms.append(Platform(x, y, 200, 20))
+    return platforms
+
 # Create player instance
 player = Player()
 
-platforms = [
-    Platform(200, 500, 400, 20),
-    Platform(100, 400, 200, 20),
-    Platform(500, 300, 200, 20),
-    Platform(300, 200, 200, 20)
-]
+platforms = generate_platforms()
 
 # Game Loop
 clock = pygame.time.Clock()
@@ -118,6 +130,14 @@ while running:
     # Update and Draw Player
     player.update()
     screen.blit(player.image, player.rect)
+
+    platforms = [p for p in platforms if p.rect.top < HEIGHT]
+
+    if len(platforms) < 6:
+        x = random.randint(100, WIDTH - 200)
+        y = platforms[-1].rect.top - 100
+        platforms.append(Platform(x, y, 200, 20))
+        
     
     for platform in platforms:
         screen.blit(platform.image, platform.rect)
