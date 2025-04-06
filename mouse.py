@@ -21,8 +21,8 @@ while running:
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False 
-        elif event.key == KEYDOWN:
-            if event.type == K_r:
+        elif event.type == KEYDOWN:
+            if event.key == K_r:
                 rectangles.clear()             
         elif event.type == MOUSEBUTTONDOWN:
             start = event.pos
