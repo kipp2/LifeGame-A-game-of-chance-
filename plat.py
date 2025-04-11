@@ -1,5 +1,6 @@
 import pygame
 import random
+from pygame.locals import *
 
 # Initialize Pygame
 pygame.init()
@@ -97,10 +98,34 @@ def generate_platforms():
         platforms.append(Platform(x, y, 200, 20))
     return platforms
 
+class Text:
+
+    def __init__(self, text, pos, **option):
+        self.text = str(text)
+        self.pos = pos 
+
+        self.fontname = None
+        self.fontsize = 36
+        self.fontcolor = Color('black')
+        self.set_font()
+        self.render()
+
+    def set_font(self):
+            self.font = pygame.font.Font(self.fontname, self.fontsize)
+
+    def render(self):
+            self.img = self.font.render(self.text, True, self.fontcolor)
+            self.rect = self.img.get_rect()
+            self.rect.topleft = self.pos 
+
+    def draw(self, surface):
+            screen.blit(self.img, self.rect)
+
 # Create player instance
 player = Player()
 
 platforms = generate_platforms()
+
 
 # Game Loop
 clock = pygame.time.Clock()
@@ -142,7 +167,10 @@ while running:
     for platform in platforms:
         screen.blit(platform.image, platform.rect)
 
+    score_text = Text(f"Score: {player.score}", pos=(WIDTH-200, 20))
+    score_text.draw(screen)
     pygame.display.update()
+    
 
 pygame.quit()
 

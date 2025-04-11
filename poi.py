@@ -13,8 +13,10 @@ running = True
 while running:
     for event in pygame.event.get():
         if event.type == QUIT:
-            running = False         
-
+            running = False 
+        else:
+              print(event)        
+          
     screen.fill(GRAY)
     pygame.draw.rect(screen, GREEN, rect, 4)
     for pt in pts:
