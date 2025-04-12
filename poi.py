@@ -14,10 +14,9 @@ while running:
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False 
-        else:
-              print(event)        
+                
           
-    screen.fill(GRAY)
+    screen.fill(PURPLE)
     pygame.draw.rect(screen, GREEN, rect, 4)
     for pt in pts:
         pos = eval ('rect.'+pt)

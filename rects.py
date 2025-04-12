@@ -8,6 +8,8 @@ GREEN = (0, 255, 0)
 BLACK = (0, 0, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255,255, 0)
+PINK = (255, 0, 255)
+PURPLE = (130, 0, 255)
 width, height = SIZE 
 dir = {K_LEFT: (-5, 0), K_RIGHT: (5, 0), K_UP: (0, -5), K_DOWN: (0, 5)}
 
