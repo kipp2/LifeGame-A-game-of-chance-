@@ -27,7 +27,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface((40, 60))
         self.image.fill(BLUE)
         self.rect = self.image.get_rect()
-        self.rect = self.rect.center = (WIDTH//2, HEIGHT - 100)
+        self.rect.center = (WIDTH//2, HEIGHT - 100)
 
         self.vel_x = 0
         self.vel_y = 0
@@ -142,7 +142,7 @@ class Text:
     def render(self):
         self.img = self.font .render(self.text, True, self.fontcolor)
         self.rect = self.img.get_rect()
-        self.rect.ropleft = self.pos
+        self.rect.topleft = self.pos
 
     def draw(self, surface):
         screen.blit(self.img, self.rect)
@@ -171,6 +171,21 @@ while running:
         player.stop()
 
     if keys[pygame.K_SPACE]:
-        player.stop()
-    
+        player.jump()
+
+    player.update()
+    screen.blit(player.image, player.rect)
+
+    platforms = [p for p in platforms if p.rect.top < HEIGHT]
+
+    if len(platforms) < 6:
+        x = random.randit(100, WIDTH - 200)
+        y = platforms[-1].rect.top - 100
+        platforms.append(Platform(x, y, 200, 20))
+
+    for platform in platforms:
+        screen.blit(platform.image, platform.rect)
+
+    pygame.display.update
+pygame.quit()
     

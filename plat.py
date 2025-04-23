@@ -54,7 +54,7 @@ class Player(pygame.sprite.Sprite):
             for platform in platforms:
                 platform.rect.y += abs(self.vel_y)
             self.rect.y += abs(self.vel_y)
-            self.score += 1
+            self.score += 0.1
 
         # Prevent player from falling below screen
         if self.rect.bottom > HEIGHT:
