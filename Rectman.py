@@ -35,7 +35,7 @@ class Player(pygame.sprite.Sprite):
         self.score = 0
 
     def update(self ):
-        self.vel_y = GRAVITY
+        self.vel_y += GRAVITY
 
         self.rect.x += self.vel_x
         self.rect.y += self.vel_y
@@ -43,7 +43,7 @@ class Player(pygame.sprite.Sprite):
         self.on_ground = False 
         for platform in platforms:
             if self.rect.colliderect(platform.rect) and self.vel_y > 0:
-                self.rect.bottom = self.rect.top
+                self.rect.bottom = platform.rect.top
                 self.vel_y = 0 
                 self.on_ground = True 
 
@@ -69,7 +69,7 @@ class Player(pygame.sprite.Sprite):
 class Enemy(pygame.sprite.Sprite):
     def __init__(self,  x, y):
         super().__init__()
-        self.image = pygame.Surface(40, 60)
+        self.image = pygame.Surface((40, 60))
         self.image.fill(RED)
         self.rect = self.image.get_rect(topleft = (x, y))
         self.health = 3
@@ -87,11 +87,13 @@ class Enemy(pygame.sprite.Sprite):
         if self.rect.right >- WIDTH or self.rect.left <= 0:
             self.direction *= -1 
         
-        if abs(self.rect.center - player.rect.center) - 200:
-            if self.rect.center < player.rect.center:
-                self.direction = 1
-            else:
-                self.direction = -1 
+        distance = abs(self.rect.centerx - player.rect.centerx)
+        
+        if distance < 200:
+            self.direction = 1
+        if distance < 200:
+            self.direction = 1 if self.rect.centerx < player.rect.centerx else -1
+
 
         self.rect.y += self.vel_y
 
@@ -110,7 +112,7 @@ class Enemy(pygame.sprite.Sprite):
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
         super().__init__()
-        self.image = pygame.Surface(width, height)
+        self.image = pygame.Surface((width, height))
         self.image.fill(GREEN)
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
@@ -149,10 +151,10 @@ class Text:
 
 player = Player()
 
-platforms = generate_platforms
+platforms = generate_platforms()
 
 clock = pygame.time.Clock()
-running = False
+running = True 
 
 while running:
     clock.tick(FPS)
@@ -179,13 +181,13 @@ while running:
     platforms = [p for p in platforms if p.rect.top < HEIGHT]
 
     if len(platforms) < 6:
-        x = random.randit(100, WIDTH - 200)
+        x = random.randint(100, WIDTH - 200)
         y = platforms[-1].rect.top - 100
         platforms.append(Platform(x, y, 200, 20))
 
     for platform in platforms:
         screen.blit(platform.image, platform.rect)
 
-    pygame.display.update
+    pygame.display.update()
 pygame.quit()
     
