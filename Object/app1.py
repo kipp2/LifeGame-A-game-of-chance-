@@ -26,22 +26,22 @@ class Text:
 
 class Scene:
     id = 0 
-    bg = Color('gray')
-    def __init__(self, *args, **kwargs):
+    default_bg = Color('gray')
+    def __init__(self,bg = None,  *args, **kwargs):
         App.scenes.append(self)
         App.scene = self
             
         self.id = Scene.id
         Scene.id += 1
         self.nodes = []
-        self.bg = Scene.bg
+        self.bg = bg if bg else Scene.default_bg
 
         
     def draw(self):
         App.screen.fill(self.bg)
         for node in self.nodes:
             node.draw()
-            pygame.display.flip()
+            
         
     def __str__(self):
         return 'Scene {}'.format(self.id)
@@ -63,21 +63,21 @@ class App:
         App.running = True
         self.shortcuts = {
             (K_x, KMOD_LMETA): 'print("cmod+X")', 
-            (K_x, KMOD_LALT): 'print("alt+X)',
-            (K_x, KMOD_LCTRL): 'print("ctr+X)', 
-            (K_x, KMOD_LMETA + KMOD_LSHIFT): 'print(cmod+shift+X)', 
-            (K_x, KMOD_LMETA + KMOD_LALT): 'print(cmod+alt+X)',
-            (K_x, KMOD_LMETA + KMOD_LALT + KMOD_LSHIFT): 'print("cmd+alt+shift+x)',
+            (K_x, KMOD_LALT): 'print("alt+X")',
+            (K_x, KMOD_LCTRL): 'print("ctr+X")', 
+            (K_x, KMOD_LMETA + KMOD_LSHIFT): 'print("cmod+shift+X")', 
+            (K_x, KMOD_LMETA + KMOD_LALT): 'print("cmod+alt+X")',
+            (K_x, KMOD_LMETA + KMOD_LALT + KMOD_LSHIFT): 'print("cmd+alt+shift+x")',
             (K_f, KMOD_LMETA): 'self.toggle_fullscreen()', 
             (K_r, KMOD_LMETA): 'self.toggle_resizable()',
             (K_g, KMOD_LMETA): 'self.toggle_frame()',
         }
     
     def do_shortcut(self, event):
-        k = event.key
-        m = event.mod
-        if (k, m) in self.shortcuts:
-            exec(self.shortcuts[k, m])
+        for (key, mod), action in self.shortcuts.items():
+            if event.key == key and (event.mod & mod) == mod:
+                exec(action)
+                break
 
     def toggle_fullscreen(self):
         self.flags = FULLSCREEN
@@ -103,13 +103,17 @@ class App:
                     self.do_shortcut(event)
                     if event.key == K_s:
                         print("key press s")
+                    elif event.key == K_RIGHT:
+                        i = current_index = App.scenes.index(App.scene)
+                        App.scene = App.scenes[(i + 1) % len(App.scenes)]
+                    elif event.key == K_LEFT:
+                        current_index = App.scenes.index(App.scene)
+                        App.scene = App.scenes[(i -1) % len(App.scenes)]        
 
-        
 
-            self.scene.draw
+            App.scene.draw()
             pygame.display.update()
 
         pygame.quit()
 
-if __name__ == '__main__':
-    App().run()
+

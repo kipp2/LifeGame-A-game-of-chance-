@@ -4,17 +4,17 @@ class Demo(App):
     def __init__(self):
         super().__init__()
 
-        Scene(caption = 'Intro')
-        Text('Scene',pos =(20, 20))
-        Text('Introduction screen the app',pos =(20, 20))
+        scene0 = Scene()
+        scene0.nodes.append(Text('Scene',pos =(20, 20)))
+        scene0.nodes.append(Text('Introduction screen the app',pos =(20, 100)))
 
-        Scene (bg = Color('yellow'), caption = "Option")
-        Text('Scene 1', pos =(20, 20))
-        Text('Option Screen of the App', pos =(20, 20))
+        scene1 =Scene (bg = Color('yellow'))
+        scene1.nodes.append(Text('Scene 1', pos =(20, 20)))
+        scene1.nodes.append(Text('Option Screen of the App', pos =(20, 100)))
 
-        Scene(bg=Color('green'), caption = 'Main' )
-        Text('Scene 2', pos =(20, 20))
-        Text('Main screen of the App', pos =(20, 20))
+        scene2 = Scene(bg=Color('green'))
+        scene2.nodes.append(Text('Scene 2', pos =(20, 20)))
+        scene2.nodes.append(Text('Main screen of the App', pos =(20, 100)))
 
         App.scene = App.scenes[0]
 
